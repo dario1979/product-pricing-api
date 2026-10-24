@@ -16,7 +16,7 @@ return new class extends Migration
 
             $table->string('name', 150);
 
-            $table->text('description')->nullable();
+            $table->text('description');
 
             $table->decimal(
                 'price',

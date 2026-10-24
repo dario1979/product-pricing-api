@@ -27,7 +27,7 @@ final class StoreProductPriceRequest extends FormRequest
                 'decimal:0,2',
                 'min:0',
             ],
+            
         ];
     }
 }
-

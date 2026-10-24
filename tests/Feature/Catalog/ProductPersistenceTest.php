@@ -59,7 +59,7 @@ class ProductPersistenceTest extends TestCase
 
         $product = Product::query()->create([
             'name' => 'Mechanical Keyboard',
-            'description' => null,
+            'description' => 'Mechanical keyboard',
             'price' => '120.00',
             'currency_id' => $usd->id,
             'tax_cost' => '12.00',
@@ -104,7 +104,7 @@ class ProductPersistenceTest extends TestCase
 
         $product = Product::query()->create([
             'name' => 'Mechanical Keyboard',
-            'description' => null,
+            'description' => 'Mechanical keyboard',
             'price' => '120.00',
             'currency_id' => $usd->id,
             'tax_cost' => '12.00',
