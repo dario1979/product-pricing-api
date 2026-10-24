@@ -30,7 +30,7 @@ class UpdateProductRequest extends FormRequest
             ],
 
             'description' => [
-                'nullable',
+                'required',
                 'string',
             ],
 
