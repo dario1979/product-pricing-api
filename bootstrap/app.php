@@ -5,6 +5,7 @@ use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use App\Domain\Catalog\Exceptions\ProductNotFound;
 use Illuminate\Http\Request;
+use App\Domain\Catalog\Exceptions\ProductPriceAlreadyExists;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -27,6 +28,15 @@ return Application::configure(basePath: dirname(__DIR__))
                 }
 
                 return null;
+            }
+
+        );
+
+        $exceptions->render(
+            function (ProductPriceAlreadyExists $exception) {
+                return response()->json([
+                    'message' => $exception->getMessage(),
+                ], 409);
             }
         );
     })->create();

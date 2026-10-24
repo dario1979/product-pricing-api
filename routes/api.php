@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\ProductController;
+use App\Http\Controllers\Api\ProductPriceController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/products', [ProductController::class, 'index']);
@@ -15,3 +16,10 @@ Route::put('/products/{id}', [ProductController::class, 'update'])
 
 Route::delete('/products/{id}', [ProductController::class, 'destroy'])
     ->whereNumber('id');
+
+
+Route::get('/products/{id}/prices', [ProductPriceController::class, 'index',
+])->whereNumber('id');
+
+Route::post('/products/{id}/prices', [ProductPriceController::class,'store',
+])->whereNumber('id');
