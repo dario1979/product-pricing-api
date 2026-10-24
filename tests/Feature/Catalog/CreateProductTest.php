@@ -4,7 +4,6 @@ namespace Tests\Feature\Catalog;
 
 use App\Infrastructure\Persistence\Eloquent\Models\Currency;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class CreateProductTest extends TestCase
@@ -30,21 +29,14 @@ class CreateProductTest extends TestCase
 
         $response
             ->assertCreated()
-            ->assertJsonPath(
-                'data.name',
-                'Mechanical Keyboard'
-            )
-            ->assertJsonPath(
-                'data.price',
-                '120.00'
-            )
-            ->assertJsonPath(
-                'data.currency_id',
-                $currency->id
-            );
+            ->assertJsonPath('data.name', 'Mechanical Keyboard')
+            ->assertJsonPath('data.description', 'Mechanical keyboard')
+            ->assertJsonPath('data.price', '120.00')
+            ->assertJsonPath('data.currency_id', $currency->id);
 
         $this->assertDatabaseHas('products', [
             'name' => 'Mechanical Keyboard',
+            'description' => 'Mechanical keyboard',
             'currency_id' => $currency->id,
             'price' => '120.00',
         ]);
@@ -64,6 +56,7 @@ class CreateProductTest extends TestCase
             ->assertUnprocessable()
             ->assertJsonValidationErrors([
                 'name',
+                'description',
                 'price',
                 'currency_id',
                 'tax_cost',
@@ -72,4 +65,28 @@ class CreateProductTest extends TestCase
 
         $this->assertDatabaseCount('products', 0);
     }
+
+    public function test_product_description_is_required(): void
+    {
+        $currency = Currency::query()->create([
+            'name' => 'US Dollar',
+            'symbol' => 'USD',
+            'exchange_rate' => '1.00000000',
+        ]);
+
+        $response = $this->postJson('/products', [
+            'name' => 'Mechanical Keyboard',
+            'price' => '120.00',
+            'currency_id' => $currency->id,
+            'tax_cost' => '12.00',
+            'manufacturing_cost' => '50.00',
+        ]);
+
+        $response
+            ->assertUnprocessable()
+            ->assertJsonValidationErrors(['description']);
+
+        $this->assertDatabaseCount('products', 0);
+    }
 }
+
