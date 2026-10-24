@@ -30,7 +30,7 @@ class StoreProductRequest extends FormRequest
             ],
 
             'description' => [
-                'nullable',
+                'required',
                 'string',
             ],
 
