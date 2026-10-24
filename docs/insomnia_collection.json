@@ -1,0 +1,256 @@
+    {
+  "_type": "export",
+  "__export_format": 4,
+  "__export_date": "2026-10-24T00:00:00.000Z",
+  "__export_source": "product-pricing-api",
+  "resources": [
+    {
+      "_id": "wrk_product_pricing_api",
+      "parentId": null,
+      "modified": 1792800000000,
+      "created": 1792800000000,
+      "name": "Product Pricing API",
+      "description": "Technical test API, 7 requests",
+      "scope": "collection",
+      "_type": "workspace"
+    },
+    {
+      "_id": "env_product_pricing_api",
+      "parentId": "wrk_product_pricing_api",
+      "modified": 1792800000000,
+      "created": 1792800000000,
+      "name": "Base Environment",
+      "data": {
+        "base_url": "http://127.0.0.1:8000",
+        "product_id": 1
+      },
+      "dataPropertyOrder": {
+        "&": [
+          "base_url",
+          "product_id"
+        ]
+      },
+      "color": null,
+      "isPrivate": false,
+      "metaSortKey": 0,
+      "_type": "environment"
+    },
+    {
+      "_id": "req_product_pricing_1",
+      "parentId": "wrk_product_pricing_api",
+      "modified": 1792800000000,
+      "created": 1792800000000,
+      "url": "{{ _.base_url }}/products",
+      "name": "List products",
+      "description": "",
+      "method": "GET",
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ],
+      "parameters": [],
+      "authentication": {},
+      "metaSortKey": 0,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request",
+      "body": {}
+    },
+    {
+      "_id": "req_product_pricing_2",
+      "parentId": "wrk_product_pricing_api",
+      "modified": 1792800000000,
+      "created": 1792800000000,
+      "url": "{{ _.base_url }}/products",
+      "name": "Create product",
+      "description": "",
+      "method": "POST",
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "parameters": [],
+      "authentication": {},
+      "metaSortKey": 1,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"Mechanical Keyboard\",\n  \"description\": \"Mechanical keyboard\",\n  \"price\": \"120.00\",\n  \"currency_id\": 1,\n  \"tax_cost\": \"12.00\",\n  \"manufacturing_cost\": \"50.00\"\n}"
+      }
+    },
+    {
+      "_id": "req_product_pricing_3",
+      "parentId": "wrk_product_pricing_api",
+      "modified": 1792800000000,
+      "created": 1792800000000,
+      "url": "{{ _.base_url }}/products/{{ _.product_id }}",
+      "name": "Get product",
+      "description": "",
+      "method": "GET",
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ],
+      "parameters": [],
+      "authentication": {},
+      "metaSortKey": 2,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request",
+      "body": {}
+    },
+    {
+      "_id": "req_product_pricing_4",
+      "parentId": "wrk_product_pricing_api",
+      "modified": 1792800000000,
+      "created": 1792800000000,
+      "url": "{{ _.base_url }}/products/{{ _.product_id }}",
+      "name": "Update product",
+      "description": "",
+      "method": "PUT",
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "parameters": [],
+      "authentication": {},
+      "metaSortKey": 3,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"Updated Keyboard\",\n  \"description\": \"Updated mechanical keyboard\",\n  \"price\": \"150.00\",\n  \"currency_id\": 1,\n  \"tax_cost\": \"15.00\",\n  \"manufacturing_cost\": \"60.00\"\n}"
+      }
+    },
+    {
+      "_id": "req_product_pricing_5",
+      "parentId": "wrk_product_pricing_api",
+      "modified": 1792800000000,
+      "created": 1792800000000,
+      "url": "{{ _.base_url }}/products/{{ _.product_id }}",
+      "name": "Delete product",
+      "description": "",
+      "method": "DELETE",
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ],
+      "parameters": [],
+      "authentication": {},
+      "metaSortKey": 4,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request",
+      "body": {}
+    },
+    {
+      "_id": "req_product_pricing_6",
+      "parentId": "wrk_product_pricing_api",
+      "modified": 1792800000000,
+      "created": 1792800000000,
+      "url": "{{ _.base_url }}/products/{{ _.product_id }}/prices",
+      "name": "List product prices",
+      "description": "",
+      "method": "GET",
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ],
+      "parameters": [],
+      "authentication": {},
+      "metaSortKey": 5,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request",
+      "body": {}
+    },
+    {
+      "_id": "req_product_pricing_7",
+      "parentId": "wrk_product_pricing_api",
+      "modified": 1792800000000,
+      "created": 1792800000000,
+      "url": "{{ _.base_url }}/products/{{ _.product_id }}/prices",
+      "name": "Register product price",
+      "description": "",
+      "method": "POST",
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "parameters": [],
+      "authentication": {},
+      "metaSortKey": 6,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"currency_id\": 2,\n  \"price\": \"110.40\"\n}"
+      }
+    }
+  ]
+}
