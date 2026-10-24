@@ -1,0 +1,110 @@
+            message: The given data was invalid.
+            errors:
+              price:
+                - The price field must be at least 0.
+
+  schemas:
+    Money:
+      type: string
+      description: Decimal amount; responses use two fractional digits
+      pattern: '^\d+(\.\d{1,2})?$'
+      example: '120.00'
+    ProductInput:
+      type: object
+      required: [name, price, currency_id, tax_cost, manufacturing_cost]
+      properties:
+        name:
+          type: string
+          maxLength: 150
+          example: Mechanical Keyboard
+        description:
+          type: string
+          nullable: true
+          example: Mechanical keyboard
+        price:
+          $ref: '#/components/schemas/Money'
+        currency_id:
+          type: integer
+          minimum: 1
+          example: 1
+        tax_cost:
+          $ref: '#/components/schemas/Money'
+        manufacturing_cost:
+          $ref: '#/components/schemas/Money'
+    Product:
+      allOf:
+        - $ref: '#/components/schemas/ProductInput'
+        - type: object
+          required: [id]
+          properties:
+            id:
+              type: integer
+              example: 1
+    ProductPriceInput:
+      type: object
+      required: [currency_id, price]
+      properties:
+        currency_id:
+          type: integer
+          minimum: 1
+          example: 2
+        price:
+          $ref: '#/components/schemas/Money'
+    ProductPrice:
+      allOf:
+        - $ref: '#/components/schemas/ProductPriceInput'
+        - type: object
+          required: [id, product_id]
+          properties:
+            id:
+              type: integer
+              example: 3
+            product_id:
+              type: integer
+              example: 1
+    ProductResponse:
+      type: object
+      required: [data]
+      properties:
+        data:
+          $ref: '#/components/schemas/Product'
+    ProductListResponse:
+      type: object
+      required: [data]
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Product'
+    ProductPriceResponse:
+      type: object
+      required: [data]
+      properties:
+        data:
+          $ref: '#/components/schemas/ProductPrice'
+    ProductPriceListResponse:
+      type: object
+      required: [data]
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductPrice'
+    ErrorResponse:
+      type: object
+      required: [message]
+      properties:
+        message:
+          type: string
+    ValidationErrorResponse:
+      type: object
+      required: [message, errors]
+      properties:
+        message:
+          type: string
+        errors:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
