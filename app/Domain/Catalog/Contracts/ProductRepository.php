@@ -11,4 +11,11 @@ interface ProductRepository
     public function all(): array;
 
     public function findById(int $id): ?Product;
+
+    public function update(
+        int $id,
+        Product $product
+    ): Product;
+
+    public function delete(int $id): void;
 }

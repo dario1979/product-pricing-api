@@ -33,8 +33,8 @@ final class EloquentProductRepository implements ProductRepository
             ->orderBy('id')
             ->get()
             ->map(
-                fn (Product $product): DomainProduct =>
-                    $this->toDomain($product)
+                fn(Product $product): DomainProduct =>
+                $this->toDomain($product)
             )
             ->all();
     }
@@ -49,7 +49,36 @@ final class EloquentProductRepository implements ProductRepository
 
         return $this->toDomain($model);
     }
-    
+
+    public function update(
+        int $id,
+        DomainProduct $product,
+    ): DomainProduct {
+        $model = Product::query()->findOrFail($id);
+
+        $model->update([
+            'name' => $product->name()->value(),
+            'description' => $product->description(),
+            'price' => $product->price()->decimal(),
+            'currency_id' => $product->currencyId(),
+            'tax_cost' => $product->taxCost()->decimal(),
+            'manufacturing_cost' => $product
+                ->manufacturingCost()
+                ->decimal(),
+        ]);
+
+        return $this->toDomain(
+            $model->refresh()
+        );
+    }
+
+    public function delete(int $id): void
+    {
+        Product::query()
+            ->whereKey($id)
+            ->delete();
+    }
+
     private function toDomain(Product $model): DomainProduct
     {
         return new DomainProduct(
