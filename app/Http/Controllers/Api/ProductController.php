@@ -11,6 +11,11 @@ use Illuminate\Http\JsonResponse;
 use App\Application\Catalog\UseCases\GetProduct;
 use App\Application\Catalog\UseCases\ListProducts;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use App\Application\Catalog\DTOs\UpdateProductData;
+use App\Application\Catalog\UseCases\UpdateProduct;
+use App\Http\Requests\UpdateProductRequest;
+use App\Application\Catalog\UseCases\DeleteProduct;
+use Illuminate\Http\Response;
 
 final class ProductController extends Controller
 {
@@ -47,5 +52,29 @@ final class ProductController extends Controller
         return (new ProductResource($product))
             ->response()
             ->setStatusCode(201);
+    }
+
+    public function update(
+        int $id,
+        UpdateProductRequest $request,
+        UpdateProduct $updateProduct,
+    ): ProductResource {
+        $product = $updateProduct->execute(
+            $id,
+            UpdateProductData::fromArray(
+                $request->validated()
+            )
+        );
+
+        return new ProductResource($product);
+    }
+
+    public function destroy(
+        int $id,
+        DeleteProduct $deleteProduct,
+    ): Response {
+        $deleteProduct->execute($id);
+
+        return response()->noContent();
     }
 }

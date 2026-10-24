@@ -9,3 +9,9 @@ Route::post('/products', [ProductController::class, 'store']);
 
 Route::get('/products/{id}', [ProductController::class, 'show'])
     ->whereNumber('id');
+
+Route::put('/products/{id}', [ProductController::class, 'update'])
+    ->whereNumber('id');
+
+Route::delete('/products/{id}', [ProductController::class, 'destroy'])
+    ->whereNumber('id');
